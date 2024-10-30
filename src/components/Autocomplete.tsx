@@ -15,9 +15,9 @@ export const Autocomplete: React.FC<Props> = ({
 }) => {
   const [query, setQuery] = useState('');
   const [appliedQuery, setAppliedQuery] = useState('');
-  const [list, setList] = useState<boolean>(false);
+  const [isListVisible, setList] = useState<boolean>(false);
 
-  const applyQuery = useCallback(debounce(setAppliedQuery, delay), []);
+  const applyQuery = useCallback(debounce(setAppliedQuery, delay), [delay]);
 
   const filteredList = useMemo(() => {
     return peopleFromServer.filter(people =>
@@ -29,7 +29,7 @@ export const Autocomplete: React.FC<Props> = ({
   }, [appliedQuery]);
 
   const selectedPerson = (person: Person) => {
-    setQuery(person?.name);
+    setQuery(person.name);
     onSelected(person);
     setList(false);
   };
@@ -38,7 +38,6 @@ export const Autocomplete: React.FC<Props> = ({
     setQuery(event.target.value);
     applyQuery(event.target.value);
     setList(true);
-    onSelected(null);
   };
 
   return (
@@ -55,7 +54,7 @@ export const Autocomplete: React.FC<Props> = ({
         />
       </div>
 
-      {list && (
+      {isListVisible && (
         <div className="dropdown-menu" role="menu" data-cy="suggestions-list">
           <div className="dropdown-content">
             {filteredList.length !== 0 ? (

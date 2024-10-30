@@ -16,7 +16,7 @@ export const App: React.FC = () => {
       <main className="section is-flex is-flex-direction-column">
         <h1 className="title" data-cy="title">
           {selectedPerson
-            ? `${selectedPerson?.name} (${selectedPerson?.born} - ${selectedPerson?.died})`
+            ? `${selectedPerson.name} (${selectedPerson.born} - ${selectedPerson.died})`
             : 'No selected person'}
         </h1>
 
